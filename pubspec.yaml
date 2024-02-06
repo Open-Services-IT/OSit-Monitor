@@ -1,0 +1,31 @@
+name: qrmonitor
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  get:
+  get_storage:
+  qr_code_scanner:
+  tuple:
+  url_launcher:
+  mysql_client:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons:
+  flutter_native_splash:
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/

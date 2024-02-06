@@ -1,0 +1,13 @@
+flutter_native_splash:
+  # flutter pub run flutter_native_splash:create
+  # flutter pub run flutter_native_splash:remove
+
+  #background_image: 'assets/images/splash.png'
+  color: "#FFFFFF"
+  image: "assets/splash_screen/icon.png"
+
+  #background_image_dark: "assets/dark-background.png"
+  color_dark: "#FFFFFF"
+  image_dark: "assets/splash_screen/icon.png"
+
+  fullscreen: true
