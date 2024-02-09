@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qrmonitor/app_controller.dart';
-
+import 'package:osit_monitor/app_controller.dart';
 import 'colors.dart';
 
+// TODO refactor ALL
 class QrController {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');

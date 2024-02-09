@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 
 import 'app_controller.dart';
 
+// TODO refactor ALL
+// TODO use Theme
 const openServicesITColor = "6A0A57";
 mainColor(BuildContext context) => HexColor.fromHex(
     Get.find<AppController>().store.color); //Colors.amber[900];

@@ -4,7 +4,7 @@ import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'app_controller.dart';
-
+// TODO refactor ALL
 class DataPage extends StatelessWidget {
   const DataPage({super.key});
 
@@ -36,27 +36,28 @@ class DataPage extends StatelessWidget {
                         margin: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 60), //.all(20.0),
                         child: ListView.builder(
-                            //itemExtent: 90,
-                            shrinkWrap: true,
-                            itemCount: keysList?.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              var key = keysList![index];
-                              var code = myMap![keysList[index]]!.item1;
-                              var color =
-                                  int.parse(myMap[keysList[index]]!.item2);
-                              var url =
-                                  Uri.tryParse(code)?.host.isNotEmpty ?? false;
-                              return ListTile(
-                                title: _buildTitle(key, color),
-                                subtitle: _buildValue(code, url),
-                                visualDensity: VisualDensity.compact,
-                                dense: true,
-                                //minVerticalPadding: 0,
-                                // tileColor: Theme.of(context)
-                                //     .bottomAppBarColor
-                                //     .withAlpha(100),
-                              );
-                            }),
+                          //itemExtent: 90,
+                          shrinkWrap: true,
+                          itemCount: keysList?.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var key = keysList![index];
+                            var code = myMap![keysList[index]]!.item1;
+                            var color =
+                                int.parse(myMap[keysList[index]]!.item2);
+                            var url =
+                                Uri.tryParse(code)?.host.isNotEmpty ?? false;
+                            return ListTile(
+                              title: _buildTitle(key, color),
+                              subtitle: _buildValue(code, url),
+                              visualDensity: VisualDensity.compact,
+                              dense: true,
+                              //minVerticalPadding: 0,
+                              // tileColor: Theme.of(context)
+                              //     .bottomAppBarColor
+                              //     .withAlpha(100),
+                            );
+                          },
+                        ),
                       );
                     }
                     // here your snapshot data is null so SharedPreferences has no data...
@@ -87,15 +88,16 @@ class DataPage extends StatelessWidget {
     var scale = 1.5;
 
     return Transform.translate(
-        offset: const Offset(0, 0),
-        child: Text(
-          key,
-          textScaleFactor: scale,
-          //maxLines: 1,
-          softWrap: true,
-          overflow: TextOverflow.visible,
-          style: textStyle,
-        ));
+      offset: const Offset(0, 0),
+      child: Text(
+        key,
+        textScaleFactor: scale,
+        //maxLines: 1,
+        softWrap: true,
+        overflow: TextOverflow.visible,
+        style: textStyle,
+      ),
+    );
   }
 }
 

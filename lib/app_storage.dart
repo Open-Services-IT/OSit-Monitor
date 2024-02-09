@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'colors.dart';
 
 class AppStorage extends GetxController {
+  // TODO refactor ALL
   final box = GetStorage();
 
   static Future<void> init() async {

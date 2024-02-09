@@ -13,6 +13,8 @@ elevatedButtonCancel(context) =>
 elevatedButtonCancelText(BuildContext context) =>
     const TextStyle(color: Colors.black);
 
+// TODO refactor ALL
+
 showAbout(BuildContext context) {
   showAboutDialog(
     context: context,
