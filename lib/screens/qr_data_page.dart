@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:tuple/tuple.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'app_controller.dart';
+import '../controllers/app_controller.dart';
 
 class DataPage extends StatelessWidget {
   const DataPage({super.key});
@@ -110,10 +110,10 @@ Widget _buildValue(String code, bool url) {
 }
 
 class UrlButton extends LinkButton {
-  final String code;
-  final double scale;
+  String code;
+  double scale;
 
-  const UrlButton(
+  UrlButton(
     this.code,
     this.scale, {
     Key? key,
@@ -124,11 +124,11 @@ class UrlButton extends LinkButton {
 }
 
 class LinkButton extends StatelessWidget {
-  final String text;
-  final String uri;
-  final double scale;
+  String text;
+  String uri;
+  double scale;
 
-  const LinkButton(
+  LinkButton(
     this.text,
     this.uri,
     this.scale, {

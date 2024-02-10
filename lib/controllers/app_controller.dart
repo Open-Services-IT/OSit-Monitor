@@ -4,30 +4,44 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qrmonitor/app_storage.dart';
-import 'package:qrmonitor/mysql_service.dart';
-import 'package:qrmonitor/qr_controller.dart';
+
 import 'package:tuple/tuple.dart';
 
+import '../services/app_storage.dart';
+import '../services/mysql_service.dart';
+import 'qr_controller.dart';
+
 class AppController extends GetxController {
+  static AppController get find => Get.find();
+  QrController qrController = Get.put(QrController());
   final store = AppStorage();
   final mysql = Mysql();
-
-  late QrController qrctrl;
-
-  AppController(this.qrctrl);
 
   // GUI
   bool get isDark => store.isDark;
   ThemeData get theme => isDark ? ThemeData.dark() : ThemeData.light();
   void toggleTheme({bool dark = false}) {
-    store.toogleTheme(dark);
+    store.toggleTheme(dark);
     update();
   }
 
   //QR
   String qrCode = "";
   Barcode? scanData;
+
+  setNfcCode(String nfcCode) async  {
+    try {
+      qrCode = nfcCode;
+      map = await mysql.readQRData(nfcCode);
+      update();
+      if (store.msTimeout > 0) {
+        Future.delayed(
+            Duration(milliseconds: store.msTimeout), () => resetQrCode());
+      }
+    } catch (ex) {
+      debugPrint(ex.toString());
+    }
+  }
 
   setQrCode(Barcode val) async {
     if (val.code == scanData?.code) return;
@@ -76,17 +90,18 @@ class AppController extends GetxController {
   bool get isPaused => paused;
   CameraFacing facingFront = CameraFacing.front;
 
-  Future<CameraFacing>? getCameraInfo() => qrctrl.controller?.getCameraInfo();
+  Future<CameraFacing>? getCameraInfo() =>
+      qrController.controller?.getCameraInfo();
 
-  Future<bool?>? getFlashStatus() => qrctrl.controller?.getFlashStatus();
+  Future<bool?>? getFlashStatus() => qrController.controller?.getFlashStatus();
 
   void toggleCamera() async {
-    await qrctrl.controller?.flipCamera();
+    await qrController.controller?.flipCamera();
     update();
   }
 
   void toggleFlash() async {
-    await qrctrl.controller?.toggleFlash();
+    await qrController.controller?.toggleFlash();
     update();
   }
 
@@ -94,9 +109,9 @@ class AppController extends GetxController {
   void toggleAction() {
     paused = !paused;
     if (paused) {
-      qrctrl.controller?.pauseCamera();
+      qrController.controller?.pauseCamera();
     } else {
-      qrctrl.controller?.resumeCamera();
+      qrController.controller?.resumeCamera();
     }
     update();
   }
