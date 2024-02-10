@@ -4,28 +4,44 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:osit_monitor/app_storage.dart';
-import 'package:osit_monitor/mysql_service.dart';
-import 'package:osit_monitor/qr_controller.dart';
+
 import 'package:tuple/tuple.dart';
+
+import '../services/app_storage.dart';
+import '../services/mysql_service.dart';
+import 'qr_controller.dart';
 
 class AppController extends GetxController {
   static AppController get find => Get.find();
   QrController qrController = Get.put(QrController());
-  // TODO refactor ALL
   final store = AppStorage();
   final mysql = Mysql();
+
   // GUI
   bool get isDark => store.isDark;
   ThemeData get theme => isDark ? ThemeData.dark() : ThemeData.light();
   void toggleTheme({bool dark = false}) {
-    store.toogleTheme(dark);
+    store.toggleTheme(dark);
     update();
   }
 
   //QR
   String qrCode = "";
   Barcode? scanData;
+
+  setNfcCode(String nfcCode) async  {
+    try {
+      qrCode = nfcCode;
+      map = await mysql.readQRData(nfcCode);
+      update();
+      if (store.msTimeout > 0) {
+        Future.delayed(
+            Duration(milliseconds: store.msTimeout), () => resetQrCode());
+      }
+    } catch (ex) {
+      debugPrint(ex.toString());
+    }
+  }
 
   setQrCode(Barcode val) async {
     if (val.code == scanData?.code) return;
@@ -74,7 +90,8 @@ class AppController extends GetxController {
   bool get isPaused => paused;
   CameraFacing facingFront = CameraFacing.front;
 
-  Future<CameraFacing>? getCameraInfo() => qrController.controller?.getCameraInfo();
+  Future<CameraFacing>? getCameraInfo() =>
+      qrController.controller?.getCameraInfo();
 
   Future<bool?>? getFlashStatus() => qrController.controller?.getFlashStatus();
 

@@ -2,10 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:osit_monitor/app_controller.dart';
-import 'colors.dart';
 
-// TODO refactor ALL
+
+import 'app_controller.dart';
+import '../constants/colors.dart';
+
 class QrController {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -25,13 +26,12 @@ class QrController {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-        overlayColor: overlayColor(context),
-        borderColor: mainColor(context),
-        borderRadius: 10,
-        borderLength: 32,
-        borderWidth: 16,
-        cutOutSize: scanArea,
-      ),
+          overlayColor: overlayColor(context),
+          borderColor: mainColor(context),
+          borderRadius: 10,
+          borderLength: 32,
+          borderWidth: 16,
+          cutOutSize: scanArea),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }

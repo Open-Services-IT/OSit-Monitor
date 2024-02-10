@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
-import 'app_controller.dart';
-import 'qr_data_page.dart';
-import 'colors.dart';
+import '../controllers/app_controller.dart';
+import '../screens/qr_data_page.dart';
+import '../constants/colors.dart';
 
 dialogTextStyle(BuildContext context) => const TextStyle(fontSize: 24.0);
 elevatedButtonStyle(BuildContext context) =>
@@ -12,8 +12,6 @@ elevatedButtonCancel(context) =>
     ElevatedButton.styleFrom(backgroundColor: Colors.white);
 elevatedButtonCancelText(BuildContext context) =>
     const TextStyle(color: Colors.black);
-
-// TODO refactor ALL
 
 showAbout(BuildContext context) {
   showAboutDialog(
@@ -26,10 +24,9 @@ showAbout(BuildContext context) {
       // color: const Color.fromARGB(222, 255, 255, 255),
       // colorBlendMode: BlendMode.dstOut,
     ),
-    // TODO
-    applicationName: 'OSit monitor',
+    applicationName: 'OSit QRinvent',
     applicationVersion: '0.0.1',
-    applicationLegalese: '©2023 openServices.eus',
+    applicationLegalese: '©2024 openServices.eus',
     children: <Widget>[
       Padding(
           padding: const EdgeInsets.only(top: 15),
@@ -39,22 +36,22 @@ showAbout(BuildContext context) {
             children: [
               const Text(
                   'Esta App ha sido creada gracias a los siguientes amantes de la gastronomía:\n'),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(18.0, 0, 0, 0),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     LinkButton("Paco",
                         "https://www.youtube.com/watch?v=m3CHfRVM9uM", 1),
-                    Text('El de la Receta 🍰'),
+                    const Text('El de la Receta 🍰'),
                     LinkButton("Héctor",
                         "https://www.linkedin.com/in/hectorherrero/", 1),
-                    Text('El del Restaurante 🏩'),
+                    const Text('El del Restaurante 🏩'),
                     LinkButton(
                         "Santi", "https://www.linkedin.com/in/srlopezh/", 1),
-                    Text('El Cocinero 👨‍🍳'),
-                    SizedBox(height: 20),
+                    const Text('El Cocinero 👨‍🍳'),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),

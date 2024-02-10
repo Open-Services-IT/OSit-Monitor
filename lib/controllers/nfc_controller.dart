@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:ndef/record.dart';
-import 'package:osit_monitor/app_controller.dart';
+import 'package:osit_monitor/controllers/app_controller.dart';
 
 class NfcController extends GetxController {
   static NfcController get find => Get.find();
-  // AppController appController = Get.put(AppController());
+  AppController appController = Get.put(AppController());
   void startNFCReading() async {
     try {
       NFCTag tag = await FlutterNfcKit.poll();
@@ -15,15 +15,15 @@ class NfcController extends GetxController {
         List<NDEFRecord> ndefRecords = await FlutterNfcKit.readNDEFRecords();
         String ndefString = '';
         for (int i = 0; i < ndefRecords.length; i++) {
-          ndefString += '${i + 1}: ${ndefRecords[i]}\n';
+          ndefString += '${i + 1}: ${ndefRecords[i]}';
         }
         RegExp regExp = RegExp(r'text=([^ ]+)');
         Iterable<Match> matches = regExp.allMatches(ndefString);
         List<String?> extractedCharacters =
             matches.map((match) => match.group(1)).toList();
         String extractedCharactersString = extractedCharacters.join(', ');
-        debugPrint(extractedCharactersString.trim());
-        // appController.setQrCode(nfcCode: extractedCharactersString);
+        debugPrint(extractedCharactersString);
+        appController.setNfcCode(extractedCharactersString);
       }
     } catch (e) {
       debugPrint('Error reading NFC: $e');

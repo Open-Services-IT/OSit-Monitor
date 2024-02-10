@@ -1,45 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:osit_monitor/main_wrapper_controller.dart';
-import 'package:osit_monitor/qr_controller.dart';
-import 'app_controller.dart';
+import 'package:osit_monitor/controllers/qr_controller.dart';
+import '../controllers/app_controller.dart';
 import 'qr_data_page.dart';
-import 'dialogs.dart';
-// TODO refactor ALL
+import '../widgets/dialogs.dart';
+import '../constants/colors.dart';
+
 class QrScreen extends StatelessWidget {
   QrScreen({super.key}) : super();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  final MainWrapperController mainWrapperController =
-      Get.put(MainWrapperController());
-  final QrController qrController =
-  Get.put(QrController());
+
+  final QrController qrController = Get.put(QrController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AppController>(
       builder: (_) => Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            qrController.buildQrView(context, _),
-            Stack(
-              children: [
-                Positioned(
-                  top: 5,
-                  right: 7,
-                  child: Image.asset(
-                    'assets/logo.png',
-                    scale: 7,
-                  ),
+        body: Stack(children: [
+          qrController.buildQrView(context, _),
+          Stack(
+            children: [
+              Positioned(
+                bottom: 5,
+                right: 7,
+                child: Image.asset(
+                  'assets/logo.png',
+                  scale: 7,
                 ),
-                const DataPage(),
-              ],
-            ),
-          ],
-        ),
+              ),
+              const DataPage(),
+            ],
+          ),
+        ]),
         //bottomSheet: SizedBox(height: 30),
         bottomNavigationBar: SizedBox(
-          height: AppBar().preferredSize.height + 8,
+          height: AppBar().preferredSize.height + 26,
           child: Container(
             color: Colors.grey.shade500,
             child: Row(

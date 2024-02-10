@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'colors.dart';
+import '../constants/colors.dart';
 
 class AppStorage extends GetxController {
-  // TODO refactor ALL
   final box = GetStorage();
 
   static Future<void> init() async {
@@ -15,7 +14,7 @@ class AppStorage extends GetxController {
   // GUI
   bool get isDark => box.read('darkmode') ?? false;
   ThemeData get theme => isDark ? ThemeData.dark() : ThemeData.light();
-  void toogleTheme(bool val) => box.write('darkmode', val);
+  void toggleTheme(bool val) => box.write('darkmode', val);
 
   int get msTimeout => box.read<int>('mstimeout') ?? 3000;
   set msTimeout(int val) => box.write('mstimeout', val);

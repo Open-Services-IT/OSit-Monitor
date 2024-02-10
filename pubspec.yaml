@@ -17,6 +17,8 @@ dependencies:
   url_launcher:
   mysql_client:
   flutter_nfc_kit:
+  permission_handler:
+  flutter_screenutil:
 
 dev_dependencies:
   flutter_test:
