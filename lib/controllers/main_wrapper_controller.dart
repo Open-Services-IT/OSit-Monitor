@@ -9,8 +9,8 @@ class MainWrapperController extends GetxController {
   List<String> titles = ['QR', 'NFC'];
   RxString title = ''.obs;
   void goToTab(int page) {
+    title.value = titles[currentPage.value];
     currentPage.value = page;
-    title.value = titles[page];
     pageController.jumpToPage(page);
     update();
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:osit_monitor/constants/dimens.dart';
 import 'package:osit_monitor/widgets/bottom_bar_item.dart';
 import 'package:osit_monitor/constants/colors.dart';
 import 'package:osit_monitor/widgets/dialogs.dart';
@@ -13,7 +14,7 @@ import 'qr_screen.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final MainWrapperController mainWrapperController =
-      Get.put(MainWrapperController());
+  Get.put(MainWrapperController());
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +22,12 @@ class HomePage extends StatelessWidget {
       builder: (_) => Scaffold(
         appBar: AppBar(
             centerTitle: true,
-            title: TextButton(
-              onPressed: () {
-                _.resetQrCode();
-              },
+            title: GestureDetector(
+              onTap: _.resetQrCode,
               child: Text(
                 _.qrCode,
-                textScaleFactor: 1.4,
+                textScaler: TextScaler.linear(
+                    (Dimens.screenWidth / 4) < 90 ? .8 : 1.25),
                 style: TextStyle(
                   color: _.isDark ? Colors.white : Colors.black,
                   decoration: TextDecoration.none,
@@ -39,13 +39,13 @@ class HomePage extends StatelessWidget {
             systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
             ),
+            // titleSpacing: 0,
             leading: Obx(
-              () => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
+                  () => Container(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Expanded(
                         flex: 1,
@@ -61,42 +61,42 @@ class HomePage extends StatelessWidget {
                           iconSize: 32,
                         )),
                     Expanded(
-                        flex: 1,
-                        child: Text(mainWrapperController.currentPage < 1
-                            ? 'NFC'
-                            : 'QR'),),
+                      flex: 1,
+                      child: Text(mainWrapperController.title.value),
+                    ),
                   ],
                 ),
               ),
             ),
-            leadingWidth: 90,
+            leadingWidth: Dimens.screenWidth / 4,
             actions: [
               Switch(
-                  activeColor: mainColor(context),
-                  value: _.isDark,
-                  onChanged: (val) {
-                    _.toggleTheme(dark: !_.isDark);
-                  }),
+                activeColor: mainColor(context),
+                value: _.isDark,
+                onChanged: (val) {
+                  _.toggleTheme(dark: !_.isDark);
+                },
+              ),
               PopupMenuButton<int>(
-                  // add icon, by default "3 dot" icon
-                  // icon: Icon(Icons.book)
+                // add icon, by default "3 dot" icon
+                // icon: Icon(Icons.book)
                   itemBuilder: (context) {
-                return [
-                  const PopupMenuItem<int>(
-                    value: 0,
-                    child: Text("DB Params"),
-                  ),
-                  const PopupMenuItem<int>(
-                    value: 1,
-                    child: Text("User Preferences"),
-                  ),
-                  const PopupMenuDivider(),
-                  const PopupMenuItem<int>(
-                    value: 2,
-                    child: Text("About ..."),
-                  ),
-                ];
-              }, onSelected: (value) {
+                    return [
+                      const PopupMenuItem<int>(
+                        value: 0,
+                        child: Text("DB Params"),
+                      ),
+                      const PopupMenuItem<int>(
+                        value: 1,
+                        child: Text("User Preferences"),
+                      ),
+                      const PopupMenuDivider(),
+                      const PopupMenuItem<int>(
+                        value: 2,
+                        child: Text("About ..."),
+                      ),
+                    ];
+                  }, onSelected: (value) {
                 if (value == 0) {
                   showDBConfig(context, _);
                 } else if (value == 1) {

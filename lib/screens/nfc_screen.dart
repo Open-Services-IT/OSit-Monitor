@@ -18,7 +18,6 @@ class NfcScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AppController>(
       builder: (_) => Scaffold(
-
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         body: Stack(
@@ -32,14 +31,15 @@ class NfcScreen extends StatelessWidget {
               ),
             ),
             const DataPage(),
-            Positioned(
-              top: 10,
-              left: 10,
-              child: ElevatedButton(
-                onPressed: nfcController.startNFCReading,
-                child: const Text('Escanear NFC'),
+            if (_.map.isEmpty)
+              Positioned(
+                top: 10,
+                left: 10,
+                child: ElevatedButton(
+                  onPressed: nfcController.startNFCReading,
+                  child: const Text('Escanear NFC'),
+                ),
               ),
-            ),
             // const DataPage(),
           ],
         ),

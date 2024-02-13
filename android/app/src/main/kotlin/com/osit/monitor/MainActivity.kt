@@ -1,4 +1,4 @@
-package com.osit.monitor
+package com.osit.monitorapp
 
 import io.flutter.embedding.android.FlutterActivity
 
