@@ -14,7 +14,7 @@ import 'qr_screen.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final MainWrapperController mainWrapperController =
-  Get.put(MainWrapperController());
+      Get.put(MainWrapperController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
               child: Text(
                 _.qrCode,
                 textScaler: TextScaler.linear(
-                    (Dimens.screenWidth / 4) < 90 ? .8 : 1.25),
+                    (MediaQuery.of(context).size.width / 4) < 90 ? .8 : 1.25),
                 style: TextStyle(
                   color: _.isDark ? Colors.white : Colors.black,
                   decoration: TextDecoration.none,
@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
             ),
             // titleSpacing: 0,
             leading: Obx(
-                  () => Container(
+              () => Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            leadingWidth: Dimens.screenWidth / 4,
+            leadingWidth: MediaQuery.of(context).size.width / 4,
             actions: [
               Switch(
                 activeColor: mainColor(context),
@@ -78,25 +78,25 @@ class HomePage extends StatelessWidget {
                 },
               ),
               PopupMenuButton<int>(
-                // add icon, by default "3 dot" icon
-                // icon: Icon(Icons.book)
+                  // add icon, by default "3 dot" icon
+                  // icon: Icon(Icons.book)
                   itemBuilder: (context) {
-                    return [
-                      const PopupMenuItem<int>(
-                        value: 0,
-                        child: Text("DB Params"),
-                      ),
-                      const PopupMenuItem<int>(
-                        value: 1,
-                        child: Text("User Preferences"),
-                      ),
-                      const PopupMenuDivider(),
-                      const PopupMenuItem<int>(
-                        value: 2,
-                        child: Text("About ..."),
-                      ),
-                    ];
-                  }, onSelected: (value) {
+                return [
+                  const PopupMenuItem<int>(
+                    value: 0,
+                    child: Text("DB Params"),
+                  ),
+                  const PopupMenuItem<int>(
+                    value: 1,
+                    child: Text("User Preferences"),
+                  ),
+                  const PopupMenuDivider(),
+                  const PopupMenuItem<int>(
+                    value: 2,
+                    child: Text("About ..."),
+                  ),
+                ];
+              }, onSelected: (value) {
                 if (value == 0) {
                   showDBConfig(context, _);
                 } else if (value == 1) {

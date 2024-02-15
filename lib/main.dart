@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:osit_monitor/controllers/app_controller.dart';
+import 'package:osit_monitor/controllers/main_wrapper_controller.dart';
 import 'package:osit_monitor/controllers/nfc_controller.dart';
 import 'package:osit_monitor/controllers/qr_controller.dart';
 import 'package:osit_monitor/screens/home_page.dart';
@@ -13,6 +14,7 @@ void main() async {
   Get
     ..put(QrController(), permanent: true)
     ..put(AppController(), permanent: true)
+    ..put(MainWrapperController(), permanent: true)
     ..put(NfcController(), permanent: true)
   ;
 

@@ -4,10 +4,18 @@ flutter_native_splash:
 
   #background_image: 'assets/images/splash.png'
   color: "#FFFFFF"
-  image: "assets/splash_screen/icon.png"
+#  image: "assets/splash_screen/OSLogo.png"
+  image: "assets/icon.png"
 
   #background_image_dark: "assets/dark-background.png"
   color_dark: "#FFFFFF"
-  image_dark: "assets/splash_screen/icon.png"
+#  image_dark: "assets/splash_screen/OSLogo-white.png"
+  image_dark: "assets/icon.png"
+
+  android_12:
+    color: "#FFFFFF"
+    icon_background_color: "#FFFFFF"
 
   fullscreen: true
+  web: false
+  android_gravity: center
