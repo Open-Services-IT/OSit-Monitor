@@ -14,28 +14,46 @@ class NfcScreen extends StatelessWidget {
       builder: (_) => Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
-        body: Stack(
-          children: [
-            Positioned(
-              bottom: 10,
-              right: 7,
-              child: Image.asset(
-                'assets/logo.png',
-                scale: 7,
-              ),
-            ),
-            const DataPage(),
-            if (_.map.isEmpty)
+        body: Obx(
+          () => Stack(
+            children: [
+              if ((nfcController.nfcStatus !=
+                  nfcController.nfcAvailabilityState['available']))
+                Center(
+                  child: Text(
+                    nfcController.nfcStatus,
+                    textScaler: TextScaler.linear(
+                        MediaQuery.of(context).size.width > 500
+                            ? 2.5
+                            : (MediaQuery.of(context).size.width / 4) < 90
+                                ? .8
+                                : 1.3),
+                    style: TextStyle(
+                      color: _.isDark ? Colors.white : Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                ),
               Positioned(
-                top: 10,
-                left: 10,
-                child: ElevatedButton(
-                  onPressed: nfcController.startNFCReading,
-                  child: const Text('Escanear NFC'),
+                bottom: 10,
+                right: 7,
+                child: Image.asset(
+                  'assets/logo.png',
+                  scale: 7,
                 ),
               ),
-            // const DataPage(),
-          ],
+              const DataPage(),
+              if (_.map.isEmpty)
+                Positioned(
+                  top: 10,
+                  left: 10,
+                  child: ElevatedButton(
+                    onPressed: nfcController.startNFCReading,
+                    child: const Text('Escanear NFC'),
+                  ),
+                )
+            ],
+          ),
         ),
       ),
     );

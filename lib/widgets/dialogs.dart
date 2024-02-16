@@ -25,7 +25,7 @@ showAbout(BuildContext context) {
       // colorBlendMode: BlendMode.dstOut,
     ),
     applicationName: 'OSit Monitor',
-    applicationVersion: '0.0.1',
+    applicationVersion: '1.0.0',
     applicationLegalese: '©2024 openServices.eus',
     children: <Widget>[
       Padding(

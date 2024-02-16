@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:osit_monitor/constants/dimens.dart';
+import 'package:osit_monitor/controllers/nfc_controller.dart';
+import 'package:osit_monitor/controllers/qr_controller.dart';
 import 'package:osit_monitor/widgets/bottom_bar_item.dart';
 import 'package:osit_monitor/constants/colors.dart';
 import 'package:osit_monitor/widgets/dialogs.dart';
@@ -41,25 +43,29 @@ class HomePage extends StatelessWidget {
             ),
             // titleSpacing: 0,
             leading: Obx(
-              () => Container(
+              () => GestureDetector(
+                onTap: () {
+                  mainWrapperController
+                      .goToTab(mainWrapperController.currentPage < 1 ? 1 : 0);
+                  _.resetQrCode();
+                  mainWrapperController.currentPage < 1
+                      ? NfcController().dispose()
+                      : QrController().dispose();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                        flex: 1,
-                        child: IconButton(
-                          onPressed: () {
-                            mainWrapperController.goToTab(
-                                mainWrapperController.currentPage < 1 ? 1 : 0);
-                            _.resetQrCode();
-                          },
-                          icon: Icon(mainWrapperController.currentPage < 1
-                              ? Icons.nfc
-                              : Icons.qr_code_2),
-                          iconSize: 32,
-                        )),
+                      flex: 2,
+                      child: Icon(
+                        mainWrapperController.currentPage < 1
+                            ? Icons.nfc
+                            : Icons.qr_code_2,
+                        size: 32,
+                      ),
+                    ),
                     Expanded(
                       flex: 1,
                       child: Text(mainWrapperController.title.value),
@@ -68,7 +74,9 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            leadingWidth: MediaQuery.of(context).size.width / 4,
+            leadingWidth: MediaQuery.of(context).size.width > 500
+                ? 90
+                : MediaQuery.of(context).size.width / 4,
             actions: [
               Switch(
                 activeColor: mainColor(context),

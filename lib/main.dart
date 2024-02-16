@@ -15,9 +15,7 @@ void main() async {
     ..put(QrController(), permanent: true)
     ..put(AppController(), permanent: true)
     ..put(MainWrapperController(), permanent: true)
-    ..put(NfcController(), permanent: true)
-  ;
-
+    ..put(NfcController(), permanent: true);
   runApp(const OSitMonitorApp());
 }
 
