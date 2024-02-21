@@ -82,29 +82,34 @@ class DataPage extends StatelessWidget {
         textStyle = const TextStyle(color: Colors.deepPurpleAccent);
         break;
       default:
-        textStyle = null;
+        textStyle = const TextStyle(fontSize: 18);
     }
-    var scale = 1.5;
+    var scale = AppController().store.size;
 
     return Transform.translate(
         offset: const Offset(0, 0),
         child: Text(
           key,
-          textScaleFactor: scale,
+          textScaler: TextScaler.linear(double.parse(scale)),
           //maxLines: 1,
           softWrap: true,
           overflow: TextOverflow.visible,
-          style: textStyle,
+          style: textStyle!.merge(
+            const TextStyle(fontWeight: FontWeight.bold),
+          ),
         ));
   }
 }
 
 Widget _buildValue(String code, bool url) {
+  var scale = AppController().store.size;
   if (url) {
     return UrlButton(code, 1);
   } else {
     return Text(
       code,
+      textScaler: TextScaler.linear(double.parse(scale)),
+      style: const TextStyle(fontSize: 15),
     );
   }
 }

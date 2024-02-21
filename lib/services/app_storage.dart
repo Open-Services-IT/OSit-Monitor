@@ -29,6 +29,12 @@ class AppStorage extends GetxController {
     box.write('color', a > 0 ? val : "#$openServicesITColor");
   }
 
+  double initialScale = 1;
+  String get size => box.read('size') ?? initialScale.toString();
+
+  set size(String value) {
+    box.write('size', value.toString());
+  }
   // DB
   String get host => box.read('host') ?? '127.0.0.1';
   set host(String val) => box.write('host', val);

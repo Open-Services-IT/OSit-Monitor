@@ -82,6 +82,8 @@ showPreferences(
         TextEditingController(text: ctrl.store.msTimeout.toString())),
     Tuple3('Color', (val) => ctrl.store.color = val.text.trim(),
         TextEditingController(text: ctrl.store.color)),
+    Tuple3('Size', (val) => ctrl.store.size = val.text.trim(),
+        TextEditingController(text: ctrl.store.size.toString())),
   ];
 
   showDataConfig(context, "User Preferences", entries);
