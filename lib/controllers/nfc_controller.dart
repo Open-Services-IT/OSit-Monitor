@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -22,7 +24,7 @@ class NfcController extends GetxController {
   final RxString _nfcStatus = ''.obs;
   set setNfcStatus(String value) => _nfcStatus.value = value;
   String get nfcStatus => _nfcStatus.value;
-
+  Timer? timer;
   void getNfcAvailability() async {
     await FlutterNfcKit.nfcAvailability.then((value) {
       var nfcAvailabilityValue = value.toString();
@@ -41,20 +43,24 @@ class NfcController extends GetxController {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    super.dispose();
     getNfcAvailability();
+    timer?.cancel();
+    super.dispose();
   }
 
   @override
   void onInit() async {
     super.onInit();
     getNfcAvailability();
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      timer = Timer.periodic(const Duration(seconds: 15), (Timer t) {
+        startNFCReading();
+      });
+    }
   }
 
   void startNFCReading() async {
     try {
-      getNfcAvailability();
       NFCTag tag = await FlutterNfcKit.poll();
       if (tag.ndefAvailable ?? false) {
         List<NDEFRecord> ndefRecords = await FlutterNfcKit.readNDEFRecords();
@@ -71,7 +77,8 @@ class NfcController extends GetxController {
         FlutterNfcKit.finish().then((value) {
           appController.setNfcCode(extractedCharactersString);
         }).catchError((error) {
-          AppUtils.showSnackBar("Ocurrio un error al leer el tag NFC", SnackType.ERROR);
+          AppUtils.showSnackBar(
+              "Ocurrio un error al leer el tag NFC", SnackType.ERROR);
           debugPrint(error.toString());
         });
       }
@@ -84,7 +91,8 @@ class NfcController extends GetxController {
             startNFCReading();
             retry++;
           }).catchError((error) {
-            AppUtils.showSnackBar("Ocurrio un error al leer el tag NFC", SnackType.ERROR);
+            AppUtils.showSnackBar(
+                "Ocurrio un error al leer el tag NFC", SnackType.ERROR);
             debugPrint(error.toString());
           });
         }

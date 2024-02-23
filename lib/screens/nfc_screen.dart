@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:osit_monitor/controllers/nfc_controller.dart';
@@ -43,7 +44,7 @@ class NfcScreen extends StatelessWidget {
                 ),
               ),
               const DataPage(),
-              if (_.map.isEmpty)
+              if (_.map.isEmpty && defaultTargetPlatform == TargetPlatform.iOS)
                 Positioned(
                   top: 10,
                   left: 10,
