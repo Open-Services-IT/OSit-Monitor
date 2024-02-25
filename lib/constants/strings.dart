@@ -1,24 +1,7 @@
 abstract class StringValues {
-  static const appName = 'Kiom';
-  static const welcome = '¡Bienvenid@!';
-  static const welcomeRegister = '¡Bienvenid@, registrate!';
-  static const welcomeBack = '¡Hola, bienvenid@ de vuelta!';
-  static const hello = 'Hola';
-  static const register = 'Registrarse';
-  static const login = 'Iniciar sesión';
-  static const logout = 'Salir';
-  static const logout1 = 'Cerrar sesion';
-  static const forgotPassword = 'Olvide mi contraseña';
-  static const resetPassword = 'Reset Password';
-  static const name = 'Nombre';
-  static const firstName = 'Primer nombre';
-  static const lastName = 'Segundo nombre';
-  static const email = 'Email';
-  static const username = 'Nombre de Usuario';
-  static const password = 'Contraseña';
-  static const doNotHaveAccount = "No tenes cuenta?";
-  static const alreadyHaveAccount = "Ya estas registrad@?";
-  static const alreadyRegistered = "Ya existe este usuario!!";
+  static const appName = 'OSit Inventory';
+  static const OSITUrl = 'https://www.openservices.eus';
+
   static const String themeMode = 'themeMode';
   static const String system = 'System';
   static const String light = 'Light';
@@ -28,24 +11,26 @@ abstract class StringValues {
   static const darkModeDesc = 'Use dark theme';
   static const darkMode = 'Dark Mode';
   static const okay = 'Ok';
-  static const errorOccurred = 'Ocurrió un errror intente nuevamente.';
-  static const unknownErrorOccurred = 'Ocurrió un error inesperado';
-  static const loginSuccessful = 'Bienvenid@ de vuelta';
-  static const registrationSuccessful =
-      'Te enviamos un correo para confirmar tu cuenta';
-  static const logoutSuccessful = 'Logged out successfully.';
-  static const token = 'token';
-  static const refreshToken = 'refreshToken';
-  static const expiresAt = 'expiresAt';
-  static const user = 'user';
-  static const loginData = 'loginData';
-  static const authDetailsSaved = 'Auth details saved.';
-  static const authDetailsNotSaved = "Auth details couldn't saved.";
-  static const authDetailsFound = 'Auth details found.';
-  static const authDetailsNotFound = 'Auth details not found.';
-  static const userData = 'userData';
-  static const authDetailsRemoved = 'Auth details removed.';
-  static const noExpensesData = 'No hay gastos aun !!';
+
+  static final _initialDbParams = InitialDbParams();
+
+  static InitialDbParams get initialDbParams => _initialDbParams;
+  static const legalese = "Open Services IT";
+
+}
+
+class InitialDbParams {
+  final _host = 'ocs.local.local';
+  final _port = 3306;
+  final _username = 'username';
+  final _pass = 'password';
+  final _db = 'ocsweb';
+
+  String get host => _host;
+  int get port => _port;
+  String get username => _username;
+  String get pass => _pass;
+  String get db => _db;
 }
 
 abstract class AssetValues {

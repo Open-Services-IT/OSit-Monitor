@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:osit_monitor/constants/dimens.dart';
+import 'package:osit_monitor/constants/strings.dart';
 import 'package:tuple/tuple.dart';
-
 import '../controllers/app_controller.dart';
-import '../screens/qr_data_page.dart';
 import '../constants/colors.dart';
 
 dialogTextStyle(BuildContext context) => const TextStyle(fontSize: 24.0);
@@ -14,60 +14,107 @@ elevatedButtonCancelText(BuildContext context) =>
     const TextStyle(color: Colors.black);
 
 showAbout(BuildContext context) {
-  showAboutDialog(
+  showDialog<void>(
     context: context,
-    applicationIcon: Image.asset(
-      'assets/icon.png',
-      height: 168 * .50,
-      width: 168 * .50,
-      fit: BoxFit.contain,
-      // color: const Color.fromARGB(222, 255, 255, 255),
-      // colorBlendMode: BlendMode.dstOut,
-    ),
-    applicationName: 'OSit Monitor',
-    applicationVersion: '1.0.0',
-    applicationLegalese: '©2024 openServices.eus',
-    children: <Widget>[
-      Padding(
-          padding: const EdgeInsets.only(top: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
+    barrierDismissible: false, // user must tap button!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: SingleChildScrollView(
+          child: ListBody(
             children: [
-              const Text(
-                  'Esta App ha sido creada gracias a los siguientes amantes de la gastronomía:\n'),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(18.0, 0, 0, 0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Image.asset(
+                      'assets/icon.png',
+                      width: Dimens.screenWidth / 8,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Expanded(
+                      flex: 3,
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 10),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  AppController().store.appName,
+                                  style: const TextStyle(),
+                                  textScaler: TextScaler.linear(
+                                    AppController().store.initialScale *
+                                        MediaQuery.of(context)
+                                            .size
+                                            .width >
+                                        375
+                                        ? 2
+                                        : 1.2,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  AppController().store.appVersion,
+                                  style: const TextStyle(),
+                                  textAlign: TextAlign.left,
+                                  textScaler: TextScaler.linear(
+                                    AppController().store.initialScale * 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  StringValues.legalese,
+                                  style: const TextStyle(),
+                                  textScaler: TextScaler.linear(
+                                      AppController().store.initialScale * .95),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
+              const SizedBox(height: 24),
+              GestureDetector(
+                onTap: AppController().launchOSITUrl,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    LinkButton("Paco",
-                        "https://www.youtube.com/watch?v=m3CHfRVM9uM", 1),
-                    const Text('El de la Receta 🍰'),
-                    LinkButton("Héctor",
-                        "https://www.linkedin.com/in/hectorherrero/", 1),
-                    const Text('El del Restaurante 🏩'),
-                    LinkButton(
-                        "Santi", "https://www.linkedin.com/in/srlopezh/", 1),
-                    const Text('El Cocinero 👨‍🍳'),
-                    const SizedBox(height: 20),
+                    Image.asset(
+                      'assets/splash_screen/OSLogo.png',
+                      fit: BoxFit.contain,
+                      // color: const Color.fromARGB(222, 255, 255, 255),
+                      // colorBlendMode: BlendMode.dstOut,
+                    ),
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    scale: 7,
-                  ),
-                ],
-              ),
-              //SizedBox(height: 20),
             ],
-          ))
-    ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: const Text('Close'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }
 

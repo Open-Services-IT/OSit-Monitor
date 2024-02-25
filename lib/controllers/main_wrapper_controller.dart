@@ -18,7 +18,7 @@ class MainWrapperController extends GetxController {
   @override
   void onInit() {
     pageController = PageController(initialPage: 0);
-    title.value = titles[0];
+    title.value = titles[1];
     super.onInit();
   }
 

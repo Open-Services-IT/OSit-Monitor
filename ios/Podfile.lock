@@ -5,6 +5,10 @@ PODS:
   - flutter_nfc_kit (2.0.0):
     - Flutter
   - MTBBarcodeScanner (5.0.11)
+  - nfc_manager (0.0.1):
+    - Flutter
+  - package_info (0.0.1):
+    - Flutter
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -20,6 +24,8 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_nfc_kit (from `.symlinks/plugins/flutter_nfc_kit/ios`)
+  - nfc_manager (from `.symlinks/plugins/nfc_manager/ios`)
+  - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
@@ -36,6 +42,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_nfc_kit:
     :path: ".symlinks/plugins/flutter_nfc_kit/ios"
+  nfc_manager:
+    :path: ".symlinks/plugins/nfc_manager/ios"
+  package_info:
+    :path: ".symlinks/plugins/package_info/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
@@ -50,6 +60,8 @@ SPEC CHECKSUMS:
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   flutter_nfc_kit: 965c98c3fa68f5609f1cc89abb968fe1b8ffdbaa
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
+  nfc_manager: d7da7cb781f7744b94df5fe9dbca904ac4a0939e
+  package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: 036b856153a2b1f61f21030ff725f3e6fece2b78
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e

@@ -16,7 +16,7 @@ class NfcScreen extends StatelessWidget {
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         body: Obx(
-          () => Stack(
+              () => Stack(
             children: [
               if ((nfcController.nfcStatus !=
                   nfcController.nfcAvailabilityState['available']))
@@ -27,8 +27,8 @@ class NfcScreen extends StatelessWidget {
                         MediaQuery.of(context).size.width > 500
                             ? 2.5
                             : (MediaQuery.of(context).size.width / 4) < 90
-                                ? .8
-                                : 1.3),
+                            ? .8
+                            : 1.3),
                     style: TextStyle(
                       color: _.isDark ? Colors.white : Colors.black,
                       decoration: TextDecoration.none,
@@ -39,8 +39,8 @@ class NfcScreen extends StatelessWidget {
                 bottom: 10,
                 right: 7,
                 child: Image.asset(
-                  'assets/logo.png',
-                  scale: 7,
+                  'assets/splash_screen/OSLogo.png',
+                  scale: 15,
                 ),
               ),
               const DataPage(),

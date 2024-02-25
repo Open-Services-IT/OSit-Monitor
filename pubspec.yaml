@@ -1,7 +1,7 @@
 name: osit_monitor
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+6
+version: 1.0.0+7
 
 environment:
   sdk: '>=3.2.5 <4.0.0'
@@ -20,6 +20,7 @@ dependencies:
   permission_handler:
   flutter_screenutil:
   nfc_manager:
+  package_info:
 
 dev_dependencies:
   flutter_test:

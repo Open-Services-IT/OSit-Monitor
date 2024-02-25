@@ -26,8 +26,8 @@ class QrScreen extends StatelessWidget {
                 bottom: 5,
                 right: 7,
                 child: Image.asset(
-                  'assets/logo.png',
-                  scale: 7,
+                  'assets/splash_screen/OSLogo.png',
+                  scale: 15,
                 ),
               ),
               const DataPage(),
@@ -50,11 +50,17 @@ class QrScreen extends StatelessWidget {
                       future: _.getCameraInfo(),
                       builder: (context, snapshot) {
                         if (snapshot.data != null) {
-                          return Icon(snapshot.data == _.facingFront
-                              ? Icons.camera_rear
-                              : Icons.camera_front); //CameraFacing.front
+                          return Icon(
+                            snapshot.data == _.facingFront
+                                ? Icons.camera_rear
+                                : Icons.camera_front,
+                            color: Colors.white,
+                          ); //CameraFacing.front
                         } else {
-                          return const Icon(Icons.camera_rear);
+                          return const Icon(
+                            Icons.camera_rear,
+                            color: Colors.white,
+                          );
                         }
                       },
                     )),
@@ -62,7 +68,10 @@ class QrScreen extends StatelessWidget {
                 ElevatedButton(
                   style: elevatedButtonStyle(context),
                   onPressed: _.toggleAction,
-                  child: Icon(_.isPaused ? Icons.play_arrow : Icons.pause),
+                  child: Icon(
+                    _.isPaused ? Icons.play_arrow : Icons.pause,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton(
@@ -71,9 +80,9 @@ class QrScreen extends StatelessWidget {
                     child: FutureBuilder(
                       future: _.getFlashStatus(),
                       builder: (context, snapshot) => Icon(
-                          snapshot.data ?? false
-                              ? Icons.flash_off
-                              : Icons.flash_on),
+                        snapshot.data ?? false
+                            ? Icons.flash_off
+                            : Icons.flash_on,color: Colors.white,),
                     )),
                 const SizedBox(width: 20),
               ],

@@ -9,24 +9,29 @@ class Mysql {
   final store = AppStorage();
 
   Future<MySQLConnection> getConnection() async {
-    final conn = await MySQLConnection.createConnection(
-      host: store.host,
-      port: store.port,
-      userName: store.user,
-      password: store.password,
-      databaseName: store.database,
-      secure: false,
-    );
-    await conn.connect();
-    return conn;
+    try {
+      final conn = await MySQLConnection.createConnection(
+        host: store.host,
+        port: store.port,
+        userName: store.user,
+        password: store.password,
+        databaseName: store.database,
+        secure: false,
+      );
+      await conn.connect();
+      return conn;
+    } catch (ex) {
+      // AppUtils.printLog("getConnection $ex");
+      rethrow;
+    }
   }
 
   Future<Map<String, Tuple2<String, String>>> readQRData(String qrCode) async {
     Map<String, Tuple2<String, String>> map = {};
     try {
-      var conn = await getConnection();
-      //centreon_storage.hosts.name
-      var result = await conn.execute("""select 
+      MySQLConnection conn = await getConnection();
+      if (conn.connected) {
+        IResultSet result = await conn.execute("""select 
       services.description, 
       services.output,
       services.last_hard_state,
@@ -38,19 +43,14 @@ class Mysql {
       ORDER BY services.description ASC, 
       services.last_check DESC""", {"qrcode": qrCode});
 
-      for (final row in result.rows) {
-        // print(row.colAt(0));
-        // print(row.colByName("title"));
-
-        // print all rows as Map<String, String>
-        // print(row.assoc());
-        map['Dirección IP'] = Tuple2('${row.colAt(3)}', "0");
-        map['${row.colAt(0)}'] = Tuple2('${row.colAt(1)}', '${row.colAt(2)}');
+        for (final row in result.rows) {
+          map['Dirección IP'] = Tuple2('${row.colAt(3)}', "0");
+          map['${row.colAt(0)}'] = Tuple2('${row.colAt(1)}', '${row.colAt(2)}');
+        }
+        conn.close();
       }
-      //map = result.rows.first.assoc();
-      conn.close();
     } catch (e) {
-      map = {'ERROR': Tuple2(e.toString(), '2')}; //2 COlor ROJO
+      rethrow;
     }
 
     return Future(() {

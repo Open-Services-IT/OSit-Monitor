@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:osit_monitor/helpers/utils.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 
@@ -41,6 +42,8 @@ class QrController {
 
     controller.scannedDataStream.listen((scanData) {
       ctrl.setQrCode(scanData);
+    }).onError((error) => {
+      AppUtils.printLog(error)
     });
   }
 

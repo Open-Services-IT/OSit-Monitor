@@ -5,7 +5,12 @@ import 'package:get_storage/get_storage.dart';
 import 'package:osit_monitor/constants/colors.dart';
 import 'package:osit_monitor/constants/dimens.dart';
 import 'package:osit_monitor/constants/strings.dart';
-
+import 'package:osit_monitor/controllers/app_controller.dart';
+import 'package:osit_monitor/controllers/main_wrapper_controller.dart';
+import 'package:osit_monitor/controllers/nfc_controller.dart';
+import 'package:osit_monitor/controllers/qr_controller.dart';
+import 'package:osit_monitor/services/app_storage.dart';
+import 'package:package_info/package_info.dart';
 
 abstract class AppUtils {
   static void showLoadingDialog() {
@@ -166,9 +171,6 @@ abstract class AppUtils {
         "***********************************************************************");
   }
 
-
-
-
   static ThemeMode handleAppTheme(mode) {
     if (mode == StringValues.dark) {
       return ThemeMode.dark;
@@ -179,18 +181,32 @@ abstract class AppUtils {
     return ThemeMode.system;
   }
 
+  static void getVersion() async {
+    try {
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      AppStorage().appName = packageInfo.appName;
+      AppStorage().appVersion = packageInfo.version;
+      AppStorage().appCopyright = StringValues.legalese;
+    } catch (ex) {
+      AppUtils.printLog(ex);
+      throw Exception(ex);
+    }
+  }
 
   static Future<void> initServices() async {
     await GetStorage.init();
-    // Get
-    //   ..put(AppThemeController(), permanent: true)
-    //   ..put(ExpenseController(), permanent: true)
-    //   ..put(SharedExpenseController(), permanent: true)
-    //   ..put(EventController(), permanent: true)
-    //   ..put(WelcomeController(), permanent: true)
-    //   ..put(HomeController(), permanent: true)
-    //   ..put(UserController(), permanent: true)
-    //   ..put(FirebaseAdminController(), permanent: true);
+    Get
+      ..put(QrController(), permanent: true)
+      ..put(AppController(), permanent: true)
+      ..put(MainWrapperController(), permanent: true)
+      ..put(NfcController(), permanent: true);
+    getVersion();
+  }
+
+  static bool isAllCapitalizedWithSecondColon({required String word}) {
+    // Check if the word is the same as its uppercase version
+    // and if the second letter is ":"
+    return word == word.toUpperCase() && word.length >= 2 && word[1] != ':';
   }
 }
 

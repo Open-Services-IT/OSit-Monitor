@@ -53,8 +53,10 @@ class NfcController extends GetxController {
     super.onInit();
     getNfcAvailability();
     if (defaultTargetPlatform == TargetPlatform.android) {
-      timer = Timer.periodic(const Duration(seconds: 15), (Timer t) {
-        startNFCReading();
+      timer = Timer.periodic(const Duration(seconds: 2), (Timer t) {
+        if (AppController().qrCode.isEmpty && !AppController().error) {
+          startNFCReading();
+        }
       });
     }
   }
@@ -71,31 +73,23 @@ class NfcController extends GetxController {
         RegExp regExp = RegExp(r'text=([^ ]+)');
         Iterable<Match> matches = regExp.allMatches(ndefString);
         List<String?> extractedCharacters =
-            matches.map((match) => match.group(1)).toList();
+        matches.map((match) => match.group(1)).toList();
         String extractedCharactersString = extractedCharacters.join(', ');
-        debugPrint(extractedCharactersString);
+        AppUtils.printLog("NFC tag: $extractedCharactersString");
         FlutterNfcKit.finish().then((value) {
-          appController.setNfcCode(extractedCharactersString);
+          // setLoading = true;
+          appController
+              .setNfcCode(extractedCharactersString)
+              .then((res) => {AppUtils.printLog('readed ok')})
+              .catchError((ex) => {AppUtils.printLog('readed with error')});
         }).catchError((error) {
-          AppUtils.showSnackBar(
-              "Ocurrio un error al leer el tag NFC", SnackType.ERROR);
-          debugPrint(error.toString());
+          AppUtils.printLog(error.toString());
         });
       }
     } catch (e) {
-      debugPrint(e.toString());
       PlatformException error = e as PlatformException;
-      if (error.code == '406') {
-        if (retry == 0) {
-          FlutterNfcKit.finish().then((value) {
-            startNFCReading();
-            retry++;
-          }).catchError((error) {
-            AppUtils.showSnackBar(
-                "Ocurrio un error al leer el tag NFC", SnackType.ERROR);
-            debugPrint(error.toString());
-          });
-        }
+      if (error.message == 'Connection timed out') {
+        AppUtils.printLog(error);
       }
     }
   }

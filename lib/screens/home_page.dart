@@ -1,64 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:osit_monitor/constants/dimens.dart';
+import 'package:osit_monitor/controllers/app_controller.dart';
 import 'package:osit_monitor/controllers/nfc_controller.dart';
 import 'package:osit_monitor/controllers/qr_controller.dart';
-import 'package:osit_monitor/widgets/bottom_bar_item.dart';
+import 'package:osit_monitor/screens/qr_screen.dart';
 import 'package:osit_monitor/constants/colors.dart';
 import 'package:osit_monitor/widgets/dialogs.dart';
 import 'package:osit_monitor/controllers/main_wrapper_controller.dart';
 import 'package:osit_monitor/screens/nfc_screen.dart';
 
-import '../controllers/app_controller.dart';
-import 'qr_screen.dart';
-
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final MainWrapperController mainWrapperController =
-      Get.put(MainWrapperController());
+  Get.put(MainWrapperController());
+  final NfcController nfcController = Get.put(NfcController());
+  final QrController qrController = Get.put(QrController());
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AppController>(
       builder: (_) => Scaffold(
         appBar: AppBar(
-            centerTitle: true,
-            title: GestureDetector(
-              onTap: _.resetQrCode,
-              child: Text(
-                _.qrCode,
-                textScaler: TextScaler.linear(
-                    (MediaQuery.of(context).size.width / 4) < 90 ? .8 : 1.25),
-                style: TextStyle(
-                  color: _.isDark ? Colors.white : Colors.black,
-                  decoration: TextDecoration.none,
-                ),
+          centerTitle: true,
+          title: GestureDetector(
+            onTap: _.resetQrCode,
+            child: Text(
+              _.qrCode,
+              textScaler: TextScaler.linear(
+                  MediaQuery.of(context).size.width < 375 ? .95 : 1.25),
+              style: TextStyle(
+                color: _.isDark ? Colors.white : Colors.black,
+                decoration: TextDecoration.none,
+                fontSize: 18,
               ),
             ),
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-            ),
-            // titleSpacing: 0,
-            leading: Obx(
-              () => GestureDetector(
-                onTap: () {
-                  mainWrapperController
-                      .goToTab(mainWrapperController.currentPage < 1 ? 1 : 0);
-                  _.resetQrCode();
-                  mainWrapperController.currentPage < 1
-                      ? NfcController().dispose()
-                      : QrController().dispose();
-                },
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+          ),
+          leading: Obx(
+                () => GestureDetector(
+              onTap: () {
+                mainWrapperController
+                    .goToTab(mainWrapperController.currentPage < 1 ? 1 : 0);
+                _.resetQrCode();
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width < 375 ? 2 : 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Expanded(
-                      flex: 2,
+                      flex: 1,
                       child: Icon(
                         mainWrapperController.currentPage < 1
                             ? Icons.nfc
@@ -68,53 +68,51 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: Text(mainWrapperController.title.value),
+                      child: Text(
+                        mainWrapperController.title.value,
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-            leadingWidth: MediaQuery.of(context).size.width > 500
-                ? 90
-                : MediaQuery.of(context).size.width / 4,
-            actions: [
-              Switch(
+          ),
+          leadingWidth: MediaQuery.of(context).size.width > 375 ? 80 : 70,
+          actions: [
+            Switch(
                 activeColor: mainColor(context),
                 value: _.isDark,
                 onChanged: (val) {
                   _.toggleTheme(dark: !_.isDark);
-                },
-              ),
-              PopupMenuButton<int>(
-                  // add icon, by default "3 dot" icon
-                  // icon: Icon(Icons.book)
-                  itemBuilder: (context) {
-                return [
-                  const PopupMenuItem<int>(
-                    value: 0,
-                    child: Text("DB Params"),
-                  ),
-                  const PopupMenuItem<int>(
-                    value: 1,
-                    child: Text("User Preferences"),
-                  ),
-                  const PopupMenuDivider(),
-                  const PopupMenuItem<int>(
-                    value: 2,
-                    child: Text("About ..."),
-                  ),
-                ];
-              }, onSelected: (value) {
-                if (value == 0) {
-                  showDBConfig(context, _);
-                } else if (value == 1) {
-                  showPreferences(context, _);
-                  _.preferencesUpdated();
-                } else if (value == 2) {
-                  showAbout(context);
-                }
-              }),
-            ]),
+                }),
+            PopupMenuButton<int>(itemBuilder: (context) {
+              return [
+                const PopupMenuItem<int>(
+                  value: 0,
+                  child: Text("DB Params"),
+                ),
+                const PopupMenuItem<int>(
+                  value: 1,
+                  child: Text("User Preferences"),
+                ),
+                const PopupMenuDivider(),
+                const PopupMenuItem<int>(
+                  value: 2,
+                  child: Text("About ..."),
+                ),
+              ];
+            }, onSelected: (value) {
+              if (value == 0) {
+                showDBConfig(context, _);
+              } else if (value == 1) {
+                showPreferences(context, _);
+                _.preferencesUpdated();
+              } else if (value == 2) {
+                showAbout(context);
+              }
+            }),
+          ],
+        ),
         body: PageView(
           controller: mainWrapperController.pageController,
           physics: const NeverScrollableScrollPhysics(),
@@ -123,40 +121,6 @@ class HomePage extends StatelessWidget {
             NfcScreen(),
           ],
         ),
-        // TODO move to /widgets
-        // bottomNavigationBar: BottomAppBar(
-        //   padding: const EdgeInsets.symmetric(horizontal: 15),
-        //   elevation: 0,
-        //   notchMargin: 10,
-        //   height: 60,
-        //   child: Row(
-        //     crossAxisAlignment: CrossAxisAlignment.center,
-        //     mainAxisSize: MainAxisSize.max,
-        //     children: [
-        //       Expanded(
-        //         flex: 12,
-        //         child: CustomBottomBarItem(
-        //           icon: Icons.qr_code,
-        //           text: 'QR',
-        //           onCustomTap: () => mainWrapperController.goToTab(0),
-        //         ),
-        //       ),
-        //       Container(
-        //         width: 1,
-        //         margin: const EdgeInsets.symmetric(vertical: 10),
-        //         color: Colors.purple,
-        //       ),
-        //       Expanded(
-        //         flex: 12,
-        //         child: CustomBottomBarItem(
-        //           icon: Icons.nfc,
-        //           text: 'NFC',
-        //           onCustomTap: () => mainWrapperController.goToTab(1),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }
