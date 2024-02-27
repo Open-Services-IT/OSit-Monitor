@@ -21,6 +21,7 @@ dependencies:
   flutter_screenutil:
   nfc_manager:
   package_info:
+  firebase_core: ^2.25.4
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "986801734683",
+    "project_id": "osit-monitor-dev",
+    "storage_bucket": "osit-monitor-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:986801734683:android:96da0f2e6ed1f8711fe4be",
+        "android_client_info": {
+          "package_name": "com.osit.monitorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9SgYXH7InxWWoHvO4oUYhLAFYWNh7Xio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
