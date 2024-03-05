@@ -123,7 +123,6 @@ Widget _buildValue(String code, bool url, int color) {
       code,
       style: const TextStyle(fontSize: 15),
       textScaler: TextScaler.linear(double.parse(scale)),
-      textAlign: color == 2 ? TextAlign.center : null,
     );
   }
 }

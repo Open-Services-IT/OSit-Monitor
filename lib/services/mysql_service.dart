@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:mysql_client/mysql_client.dart';
 import 'package:tuple/tuple.dart';

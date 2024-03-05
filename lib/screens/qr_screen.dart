@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:osit_monitor/controllers/qr_controller.dart';
 import '../controllers/app_controller.dart';
 import 'qr_data_page.dart';
 import '../widgets/dialogs.dart';
-import '../constants/colors.dart';
 
 class QrScreen extends StatelessWidget {
   QrScreen({super.key}) : super();
