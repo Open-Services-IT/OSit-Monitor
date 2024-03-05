@@ -47,10 +47,10 @@ showAbout(BuildContext context) {
                                   style: const TextStyle(),
                                   textScaler: TextScaler.linear(
                                     AppController().store.initialScale *
-                                        MediaQuery.of(context)
-                                            .size
-                                            .width >
-                                        375
+                                                MediaQuery.of(context)
+                                                    .size
+                                                    .width >
+                                            375
                                         ? 2
                                         : 1.2,
                                   ),
@@ -124,9 +124,12 @@ showPreferences(
 ) {
   var entries = <Tuple3<String, Function, TextEditingController>>[
     Tuple3(
-        'Timeout (ms)',
-        (val) => ctrl.store.msTimeout = int.tryParse(val.text) ?? 3000,
-        TextEditingController(text: ctrl.store.msTimeout.toString())),
+      'Timeout (s)',
+      (val) => ctrl.store.secsTimeout = int.tryParse(val.text) ?? 30,
+      TextEditingController(
+        text: ctrl.store.secsTimeout.toString(),
+      ),
+    ),
     Tuple3('Color', (val) => ctrl.store.color = val.text.trim(),
         TextEditingController(text: ctrl.store.color)),
     Tuple3('Size', (val) => ctrl.store.size = val.text.trim(),

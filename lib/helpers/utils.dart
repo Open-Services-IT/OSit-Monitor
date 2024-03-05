@@ -187,6 +187,8 @@ abstract class AppUtils {
       AppStorage().appName = packageInfo.appName;
       AppStorage().appVersion = packageInfo.version;
       AppStorage().appCopyright = StringValues.legalese;
+      AppStorage().buildVersion = packageInfo.buildNumber;
+
     } catch (ex) {
       AppUtils.printLog(ex);
       throw Exception(ex);
@@ -203,9 +205,10 @@ abstract class AppUtils {
     getVersion();
   }
 
-  static bool isAllCapitalizedWithSecondColon({required String word}) {
-    // Check if the word is the same as its uppercase version
-    // and if the second letter is ":"
+  static bool showCentered({required String word}) {
+    if(word.toLowerCase() == 'cpu'){
+      return false;
+    }
     return word == word.toUpperCase() && word.length >= 2 && word[1] != ':';
   }
 }

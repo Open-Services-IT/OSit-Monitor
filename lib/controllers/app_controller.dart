@@ -55,9 +55,9 @@ class AppController extends GetxController {
       map = await mysql.readQRData(nfcCode);
       setLoading = false;
       update();
-      if (store.msTimeout > 0) {
+      if (store.secsTimeout > 0) {
         Future.delayed(
-            Duration(milliseconds: store.msTimeout), () => resetQrCode());
+            Duration(seconds: store.secsTimeout), () => resetQrCode());
       }
     } catch (ex) {
       map = {'ERROR': Tuple2(ex.toString(), '2')};
@@ -105,9 +105,9 @@ class AppController extends GetxController {
       }
 
       update();
-      if (store.msTimeout > 0) {
+      if (store.secsTimeout > 0) {
         Future.delayed(
-            Duration(milliseconds: store.msTimeout), () => resetQrCode());
+            Duration(seconds: store.secsTimeout), () => resetQrCode());
       }
     } catch (ex) {
       map = {'ERROR': Tuple2(ex.toString(), '2')};

@@ -17,8 +17,8 @@ class AppStorage extends GetxController {
   ThemeData get theme => isDark ? ThemeData.dark() : ThemeData.light();
   void toggleTheme(bool val) => box.write('darkmode', val);
 
-  int get msTimeout => box.read<int>('mstimeout') ?? 3000;
-  set msTimeout(int val) => box.write('mstimeout', val);
+  int get secsTimeout => box.read<int>('timeout') ?? 30;
+  set secsTimeout(int val) => box.write('timeout', val);
 
   String get color =>
       box.read('color') ??
@@ -30,7 +30,7 @@ class AppStorage extends GetxController {
     box.write('color', a > 0 ? val : "#$openServicesITColor");
   }
 
-  double initialScale = 1;
+  double initialScale = 0.75;
   String get size => box.read('size') ?? initialScale.toString();
 
   set size(String value) {
@@ -59,6 +59,8 @@ class AppStorage extends GetxController {
   set appName(String val) => box.write('appName', val);
   String get appVersion => box.read('appVersion') ?? '0.0.1';
   set appVersion(String val) => box.write('appVersion', val);
+  String get buildVersion => box.read('buildVersion') ?? '1';
+  set buildVersion(String val) => box.write('buildVersion', val);
   String get appCopyright => box.read('appCopyright');
   set appCopyright(String val) => box.write('appCopyright', val);
 }
