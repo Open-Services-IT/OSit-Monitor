@@ -13,7 +13,7 @@ import 'package:osit_monitor/screens/nfc_screen.dart';
 class HomePage extends StatelessWidget {
   HomePage({super.key});
   final MainWrapperController mainWrapperController =
-  Get.put(MainWrapperController());
+      Get.put(MainWrapperController());
   final NfcController nfcController = Get.put(NfcController());
   final QrController qrController = Get.put(QrController());
 
@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
             statusBarColor: Colors.transparent,
           ),
           leading: Obx(
-                () => GestureDetector(
+            () => GestureDetector(
               onTap: () {
                 mainWrapperController
                     .goToTab(mainWrapperController.currentPage < 1 ? 1 : 0);
@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          leadingWidth: MediaQuery.of(context).size.width > 375 ? 80 : 70,
+          leadingWidth: MediaQuery.of(context).size.width > 375 ? 82 : 70,
           actions: [
             Switch(
                 activeColor: mainColor(context),

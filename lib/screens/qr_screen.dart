@@ -25,7 +25,7 @@ class QrScreen extends StatelessWidget {
                 right: 7,
                 child: Image.asset(
                   'assets/splash_screen/OSLogo.png',
-                  scale: 15,
+                  width: MediaQuery.of(context).size.width / 3.75,
                 ),
               ),
               const DataPage(),
@@ -80,7 +80,9 @@ class QrScreen extends StatelessWidget {
                       builder: (context, snapshot) => Icon(
                         snapshot.data ?? false
                             ? Icons.flash_off
-                            : Icons.flash_on,color: Colors.white,),
+                            : Icons.flash_on,
+                        color: Colors.white,
+                      ),
                     )),
                 const SizedBox(width: 20),
               ],
