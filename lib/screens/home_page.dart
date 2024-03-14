@@ -80,11 +80,12 @@ class HomePage extends StatelessWidget {
           leadingWidth: MediaQuery.of(context).size.width > 375 ? 82 : 70,
           actions: [
             Switch(
-                activeColor: mainColor(context),
-                value: _.isDark,
-                onChanged: (val) {
-                  _.toggleTheme(dark: !_.isDark);
-                }),
+              activeColor: mainColor(context),
+              value: _.isDark,
+              onChanged: (val) {
+                _.toggleTheme(dark: !_.isDark);
+              },
+            ),
             PopupMenuButton<int>(itemBuilder: (context) {
               return [
                 const PopupMenuItem<int>(

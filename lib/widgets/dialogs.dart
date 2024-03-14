@@ -62,10 +62,16 @@ showAbout(BuildContext context) {
                               children: [
                                 Text(
                                   AppController().store.appVersion,
-                                  style: const TextStyle(),
                                   textAlign: TextAlign.left,
+                                  style: const TextStyle(
+                                    fontSize: 22,
+                                  ),
                                   textScaler: TextScaler.linear(
-                                    AppController().store.initialScale * 1,
+                                    Dimens.screenWidth > 375
+                                        ? AppController().store.initialScale *
+                                            1.2
+                                        : AppController().store.initialScale *
+                                            .85,
                                   ),
                                 ),
                               ],
@@ -74,9 +80,16 @@ showAbout(BuildContext context) {
                               children: [
                                 Text(
                                   StringValues.legalese,
-                                  style: const TextStyle(),
+                                  style: const TextStyle(
+                                    fontSize: 22,
+                                  ),
                                   textScaler: TextScaler.linear(
-                                      AppController().store.initialScale * .95),
+                                    Dimens.screenWidth > 375
+                                        ? AppController().store.initialScale *
+                                            1.5
+                                        : AppController().store.initialScale *
+                                            .85,
+                                  ),
                                 ),
                               ],
                             ),
@@ -91,11 +104,13 @@ showAbout(BuildContext context) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Image.asset(
                       'assets/splash_screen/OSLogo.png',
                       fit: BoxFit.contain,
+                      width: Dimens.screenWidth < 375
+                          ? Dimens.screenWidth / 2
+                          : Dimens.screenWidth / 3,
                       // color: const Color.fromARGB(222, 255, 255, 255),
                       // colorBlendMode: BlendMode.dstOut,
                     ),
