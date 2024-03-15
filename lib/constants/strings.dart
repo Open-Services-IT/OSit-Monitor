@@ -20,11 +20,11 @@ abstract class StringValues {
 }
 
 class InitialDbParams {
-  final _host = 'ocs.local.local';
+  final _host = 'centreon.local.local';
   final _port = 3306;
   final _username = 'username';
   final _pass = 'password';
-  final _db = 'ocsweb';
+  final _db = 'centreon_storage';
 
   String get host => _host;
   int get port => _port;
