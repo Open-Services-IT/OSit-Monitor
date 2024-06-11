@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:osit_monitor/constants/dimens.dart';
 import 'package:osit_monitor/constants/strings.dart';
+import 'package:osit_monitor/helpers/utils.dart';
 import 'package:tuple/tuple.dart';
 import '../controllers/app_controller.dart';
 import '../constants/colors.dart';
 
 dialogTextStyle(BuildContext context) => const TextStyle(fontSize: 24.0);
 elevatedButtonStyle(BuildContext context) =>
-    ElevatedButton.styleFrom(backgroundColor: mainColor(context));
+    ElevatedButton.styleFrom(backgroundColor: mainColor(context), foregroundColor: Colors.white);
 elevatedButtonCancel(context) =>
     ElevatedButton.styleFrom(backgroundColor: Colors.white);
 elevatedButtonCancelText(BuildContext context) =>
@@ -240,6 +241,9 @@ showDataConfig(
                                 entries[i].item2(entries[i].item3.value);
                               }
                               Navigator.of(context).pop();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Success')),
+                              );
                             },
                             style: elevatedButtonStyle(context),
                             child: const Text("Confirm"),
