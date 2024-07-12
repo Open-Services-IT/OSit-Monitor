@@ -23,7 +23,7 @@ if (flutterVersionName == null) {
 }
 def flutterCompileSdkVersion = localProperties.getProperty('flutter.compileSdkVersion').toInteger()
 if (flutterCompileSdkVersion == null) {
-    flutterCompileSdkVersion = 33
+    flutterCompileSdkVersion = 34
 }
 
 def keystoreProperties = new Properties()
