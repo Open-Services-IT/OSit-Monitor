@@ -118,7 +118,8 @@ Con una única condición, los proveedores de IT no tienen derecho de modificar 
 
 ### Descarga
 
-##### soon
+**Google Play** (Android): https://play.google.com/store/apps/details?id=com.osit.monitorapp \
+**App Store** (iOS): https://apps.apple.com/es/app/osit-monitor/id6477788247
 
 ### Contacto
 
