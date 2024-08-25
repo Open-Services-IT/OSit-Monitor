@@ -1,12 +1,14 @@
 # OSit Monitor
 
-OSit Monitor es una app que funciona en Android y permite escanear códigos QR y etiquetas NFC que tengamos pegados en los elementos core de nuestra organización, sea en servidores, cabinas de almacenamiento, switches, APs Wifi, SAIs... con el objetivo de visualizar en tiempo real sus datos, estado y rendimiento.
+OSit Monitor es una app que funciona en Android e iOS y permite escanear códigos QR y etiquetas NFC que tengamos pegados en los elementos core de nuestra organización, sea en servidores, cabinas de almacenamiento, switches, APs Wifi, SAIs... con el objetivo de visualizar en tiempo real sus datos, estado y rendimiento.
 
 OSit Monitor obtiene la información del sistema de monitorización Centreon, por tanto, si dispones de tu infraestructura monitorizada (y eres feliz) podrás bajarte la app y usarla de manera gratuita YA. Es una app de código abierto, no tiene publicidad y viene sin soporte.
 
+OSit Monitor tiene una hermana gemela llamada OSit Inventory , en su caso muestra datos de inventario hardware y software en tiempo real, más info: https://github.com/Open-Services-IT/OSit-Inventory
+
 ## Cómo funciona
 
-Es muy simple, al abrir la app directamente mostrará la cámara del dispositivo móvil (móvil o tablet), con ella escanearemos un código QR que tengamos pegado en un dispositivo monitorizado con Centreon. En el momento de leer el código QR mostrará en pantalla el estado actual todos los _Servicios_ que tiene monitorizados el dispositivo (o _Host_). Y si preferimos escanear una etiqueta NFC, bastará con pulsar el icono del NFC en la app y se quitará la cámara y quedará listo para acercar nuestro dispositivo móvil a la etiqueta NFC y ver los datos en pantalla.
+Es muy simple, al abrir la app directamente mostrará la cámara del dispositivo (móvil o tablet), con Android o iOS, con ella escanearemos un código QR que tengamos pegado en un dispositivo monitorizado con Centreon. En el momento de leer el código QR mostrará en pantalla el estado actual todos los _Servicios_ que tiene monitorizados el dispositivo (o _Host_). Y si preferimos escanear una etiqueta NFC, bastará con pulsar el icono del NFC en la app y se quitará la cámara y quedará listo para acercar nuestro dispositivo móvil a la etiqueta NFC y ver los datos en pantalla.
 
 ## Qué necesitamos
 
@@ -54,9 +56,14 @@ Como hemos comentado, la versión actual de OSit Monitor conecta directamente al
     CREATE USER 'readonly'@'%' IDENTIFIED BY 'CONTRASEÑA';
     grant SELECT ON centreon_storage.* to 'readonly'@'%';
 
-**Nota**: Si sabemos el rango IP o la dirección IP desde donde se van a conectar los dispositivos móviles, se podría indicar para no abrir a todo. En el GRANT en vez de asignar un todo '%', podemos indicar por ejemplo un rango IP con '192.168.33.0/255.255.255.0'.
+**Nota**: El segundo comando, debido al símbolo del %, permite que se pueda acceder desde cualquier dirección IP. Si queremos especificar las direcciones IP desde donde se van a conectar los dispositivos móviles, se podría indicar, bien sea un rango IP o unas cuantas direcciones IP estáticas, lo haríamos sustituyendo el % por cada IP, ejemplo:
 
-**Nota 2**: Desconocemos el versionado de Centreon necesario, está validado con una 24.02, entendemos que será compatible con versiones anteriores y futuras.
+    GRANT SELECT ON centreon_storage.* TO 'readonly'@'192.168.1.33';
+    GRANT SELECT ON centreon_storage.* TO 'readonly'@'192.168.1.34';
+    GRANT SELECT ON centreon_storage.* TO 'readonly'@'192.168.1.0/255.255.255.0';
+
+
+**Nota 2**: Desconocemos el versionado de Centreon necesario, está validado con una 24.04, entendemos que será compatible con versiones anteriores y futuras.
 
 
 ### Configurar la app
@@ -122,6 +129,7 @@ Leerá cualquier tipo de diseño de un código QR de formato TEXTO, donde indica
 
 Por ejemplo se puede usar NFC Tools, tanto en Android como en iOS, permite escribir en etiquetas NFC, deberemos escribir un registro con formato texto, con el nombre del _Host_ de la máquina monitorizada en Centreon.
 
+
 ### Cómo genero un Servicio con URL
 
 Se puede crear un _Servicio_ en Centreon que se llame por ejemplo 'Acceso a gestión' que simplemente devuelva una URL, y así podamos pinchar en ella desde la app OSit Monitor con el objetivo de acceder a la gestión del dispositivo desde nuestro Androd.
@@ -134,20 +142,19 @@ El _Servicio_ se apoyará de un Comando tan sencillo como la siguiente línea, y
 
 Sabemos que en esto de IT no hay nada seguro, así que queda a tu elección, simplemente se ha creado un usuario con permisos de lectura en tu BD de Centreon. 
 
-Los códigos QR no revelan información confidencial, por lo que, si cualquier usuario (que no disponga de la app) escanea un código QR nuestro, mostrarán el nombre del dispositivo exclusivamente; los datos están en la BD.
+Los códigos QR o etiquetas NFC no revelan información confidencial, por lo que, si cualquier usuario (que no disponga de la app) escanea un código QR nuestro (o una etiqueta NFC), mostrarán el nombre del dispositivo exclusivamente; los datos están en la BD.
 
 El uso debe ser local, tu dispositivo móvil se conectará a la BD de Centreon, todo tráfico interno en tu organización, obviamente ni se te ocurra abrir la BD de Centreon a Internet.
 
 ### ¿Futuro?
 
-¿Habrán nuevas versiones con nuevas funcionalidades? ¿Habrán nuevas apps que hagan otras cosas molonguis? 
-Quién sabe, alguna idea loca queda, pero... _tempus fugit_.
+Tenemos pensadas algunas ideas a futuro, nuevas funcionalidades o integraciones entre otras, si te apetece ayudar o colaborar eres más que bienvenid@.
 
 ### Licenciamiento
 
 Cómo indicamos OSit Monitor es gratuita y de código abierto, que podrá ser usada por cualquier persona o empresa.
 
-Con una única condición, los proveedores de IT no tienen derecho de usar o modificar el código de la app, ni para su uso particular, ni la de sus clientes; ni por supuesto vender la app o derivados de esta. ;-)
+Con una única condición, los proveedores de IT no tienen derecho de usar o modificar el código de la app, ni para su uso particular, ni la de sus clientes; ni por supuesto vender la app o derivados de esta.  :stuck_out_tongue_winking_eye:
 
 ### Descarga desde los sitios oficiales
 
@@ -156,4 +163,4 @@ Con una única condición, los proveedores de IT no tienen derecho de usar o mod
 
 ### Contacto
 
-Estamos en https://www.openservices.eus
+Para lo que necesites, estamos en https://www.openservices.eus
